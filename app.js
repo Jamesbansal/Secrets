@@ -1,4 +1,5 @@
 //jshint esversion:6
+// dotenv - to use .env file where we keep secret variables like clientid and clientsecrets etc.
 require('dotenv').config();
 const express = require('express');
 const bodyparser = require('body-parser');
@@ -59,7 +60,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/secrets"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id, email:profile.displayName  }, function (err, user) {
+    User.findOrCreate({ googleId: profile.id, username:profile.displayName  }, function (err, user) {
       return cb(err, user);
     });
   }
